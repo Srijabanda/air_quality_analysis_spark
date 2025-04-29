@@ -1,4 +1,4 @@
-Air Quality Analysis using Spark
+# Air Quality Analysis using Spark
 
 
 ## Section 1: Data Ingestion and Initial Pre-Processing
@@ -74,6 +74,7 @@ Creates CSVs under section1/output/clean_data_csv/
 
 ## 📑 Output CSV Sample Schema
 
-timestamp	region	PM2_5	temperature	humidity
-2004-03-10 18:00:00	Region1	2.5	13.4	48.2
-2004-03-10 19:00:00	Region1	3.1	13.0	47.5
+| timestamp              | region  | PM2_5 | temperature | humidity |
+|------------------------|---------|-------|-------------|----------|
+| 2004-03-10T18:00:00Z   | Region1 | 2.5   | 13.4        | 48.2     |
+| 2004-03-10T19:00:00Z   | Region1 | 3.1   | 13.0        | 47.5     |
