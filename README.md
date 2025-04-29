@@ -1,4 +1,3 @@
-# air_quality_analysis_spark
 Air Quality Analysis using Spark
 
 
@@ -41,10 +40,11 @@ To generate multiple streaming mini-batches, we included an external dataset:
 
 Path: ingestion/data/pending/AirQualityUCI.csv
 
-his dataset was preprocessed using preprocess_airquality.py to simulate realistic sensor data in a streamable format. The resulting batch files are saved in ingestion/data/pending/prepared/
+This dataset was preprocessed using preprocess_airquality.py to simulate realistic sensor data in a streamable format. The resulting batch files are saved in ingestion/data/pending/prepared/
 
 Converts AirQualityUCI.csv into small, streamable CSV files
-bash ```
+
+```bash
 python ingestion/preprocess_airquality.py
 ```
 
