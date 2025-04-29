@@ -136,3 +136,67 @@ All outputs are stored in CSV format with headers.
 3. Run the script:  
    ```bash
    spark-submit data_transformations_section2.py
+
+
+# Section 3: Spark SQL Exploration & Correlation Analysis
+
+## Overview
+
+This section performs advanced data analysis on feature-engineered air quality data (from Section 2) using Spark SQL and PySpark functions. It focuses on extracting insights from temporal patterns, identifying pollution hotspots, and classifying air quality levels based on PM2.5 readings.
+
+---
+
+## Input
+
+- **Path:** `/workspaces/air_quality_analysis_spark/section2/output/feature_engineered_data/`
+- **Source:** Output from Section 2 (with normalized, cleaned, and enriched PM2.5, temperature, humidity features)
+
+---
+
+## Tasks Performed
+
+### 1. Highest Average PM2.5 over the Last 24 Hours
+- **Goal:** Identify regions with the worst average air quality based on a 24-hour rolling window.
+- **Method:** Used a Spark SQL window function (`ROWS BETWEEN`) to compute rolling 24-hour averages grouped by region.
+- **Output:** `section3/output/highest_avg_pm25_24h/`
+
+### 2. Peak Pollution Intervals
+- **Goal:** Retrieve the top 10 timestamps with the highest PM2.5 values to identify short-term pollution spikes.
+- **Method:** Ordered by PM2.5 in descending order and selected top 10 records.
+- **Output:** `section3/output/peak_pollution_intervals/`
+
+### 3. PM2.5 Trend Detection (Lag & Lead)
+- **Goal:** Detect intervals where PM2.5 values are increasing consistently.
+- **Method:** Applied `LAG` and `LEAD` functions per region to detect local increasing trends.
+- **Output:** `section3/output/pm25_trend_increase/`
+
+### 4. Air Quality Index (AQI) Classification
+- **Goal:** Group readings into AQI categories ("Good", "Moderate", "Unhealthy") based on PM2.5 values.
+- **Method:** Used a PySpark UDF to apply rule-based classification, then counted category occurrences by region.
+- **Output:** `section3/output/aqi_classification_summary/`
+
+---
+
+## Output Summary
+
+Each analysis result is saved as a CSV in its respective folder under:
+
+
+| Folder | Description |
+|--------|-------------|
+| `highest_avg_pm25_24h/` | Region-wise maximum 24h PM2.5 averages |
+| `peak_pollution_intervals/` | Top 10 peak PM2.5 moments |
+| `pm25_trend_increase/` | Flags of increasing PM2.5 trends |
+| `aqi_classification_summary/` | Count of AQI levels per region |
+
+---
+
+## Outcome
+
+The outputs of this section enable:
+- Identification of pollution hotspots
+- Monitoring of dangerous air trends
+- Classification of air quality risks
+- Preparation of data for reporting or alert systems
+
+---
