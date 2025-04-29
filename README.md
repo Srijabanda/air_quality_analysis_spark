@@ -34,7 +34,7 @@ air_quality_analysis_spark/
 
 ## 🧩 Step-by-Step Execution
 
-Step 1: Preprocess the UCI Dataset
+### Step 1: Preprocess the UCI Dataset
 
 To generate multiple streaming mini-batches, we included an external dataset:
 
@@ -48,26 +48,26 @@ Converts AirQualityUCI.csv into small, streamable CSV files
 python ingestion/preprocess_airquality.py
 ```
 
-📁 Output:
+#### 📁 Output:
 Creates batch files under ingestion/data/pending/prepared/.
 
-Step 2: Start the TCP Server
+### Step 2: Start the TCP Server
 Streams the batch files line-by-line with simulated delay.
 
-bash ```
+``` bash
 python ingestion/tcp_log_file_streaming_server.py
 ```
+#### 💡 This simulates real-time sensor data over port 9999.
 
-💡 This simulates real-time sensor data over port 9999.
+### Step 3: Start Spark Streaming Client
 
-Step 3: Start Spark Streaming Client
 Reads from TCP, structures the data, and writes clean outputs
 
-bash ``
+```bash
 python ingestion/spark_streaming_ingestion.py
 ```
 
-📁 Output:
+#### 📁 Output:
 Creates CSVs under section1/output/clean_data_csv/
 (Each file represents a mini-batch like part-00000.csv, part-00001.csv, ...)
 
