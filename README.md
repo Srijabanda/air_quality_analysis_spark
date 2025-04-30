@@ -320,7 +320,7 @@ This project simulates a real-time air quality monitoring and forecasting system
 ### 📌 Key Capabilities
 
 Module	Outcome
-Section 1 – Ingestion	Simulates streaming sensor data using TCP and Spark Structured Streaming, producing cleaned, timestamped CSV files
+Section 1 – Ingestion	Simulates streaming sensor data using TCP and Spark Structured Streaming, producing cleaned, timestamped CSV files \n
 Section 2 – Transformation	Cleans data, handles missing values/outliers, adds lag/rate features, and aggregates trends
 Section 3 – SQL Analysis	Extracts insights using Spark SQL (e.g., 24-hour PM2.5 averages, AQI classification, peak intervals)
 Section 4 – ML Forecasting	Builds and tunes a Random Forest model for PM2.5 prediction with metrics and stored predictions
