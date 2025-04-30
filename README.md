@@ -250,7 +250,6 @@ This section focuses on building a machine learning pipeline using Spark MLlib t
 |-------------|-------------|
 | `/section4/output/final_rf_model/` | Trained and tuned Random Forest regression model |
 | `/section4/output/predictions.csv` | Predicted vs. actual PM2.5 values on test set |
-| `/section4/output/metrics.csv` | Model evaluation results (RMSE and R²) |
 
 ---
 
