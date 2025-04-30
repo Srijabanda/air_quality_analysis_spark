@@ -30,15 +30,19 @@ def classify_aqi(pm25):
 
 df['AQI_Category'] = df['PM2_5'].apply(classify_aqi)
 
-# --- Step 3: Line Chart - PM2.5 Actual vs Lagged ---
-def plot_actual_vs_lag(df, out_path):
+# --- Step 3: Line Chart - PM2.5 Actual vs Lagged vs Predicted ---
+def plot_actual_vs_lag_and_pred(df, out_path):
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=df['timestamp'], y=df['PM2_5'], mode='lines', name='Actual PM2.5'))
     fig.add_trace(go.Scatter(x=df['timestamp'], y=df['PM2_5_lag1'], mode='lines', name='Lagged PM2.5'))
-    fig.update_layout(title="PM2.5: Actual vs Lagged", xaxis_title="Time", yaxis_title="PM2.5")
+
+    if 'PM2_5_pred' in df.columns:
+        fig.add_trace(go.Scatter(x=df['timestamp'], y=df['PM2_5_pred'], mode='lines', name='Predicted PM2.5'))
+
+    fig.update_layout(title="PM2.5: Actual vs Lagged vs Predicted", xaxis_title="Time", yaxis_title="PM2.5")
     fig.write_image(out_path)
 
-plot_actual_vs_lag(df, os.path.join(OUTPUT_DIR, "pm25_actual_vs_lagged.png"))
+plot_actual_vs_lag_and_pred(df, os.path.join(OUTPUT_DIR, "pm25_actual_vs_lagged.png"))
 
 # --- Step 4: Spike Events Plot (PM2.5 > 100) ---
 def plot_spike_events(df, out_path):
@@ -63,7 +67,13 @@ def plot_correlation_matrix(df, out_path):
 
 plot_correlation_matrix(df, os.path.join(OUTPUT_DIR, "correlation_matrix.png"))
 
-# --- Step 7: Save final dashboard dataset ---
+# --- Step 7: Save Final Dashboard Data ---
 df.to_csv(os.path.join(OUTPUT_DIR, "dashboard_data.csv"), index=False)
 
-print("✅ All charts and data saved to 'section5/output/'")
+# ✅ New: Save predictions to Parquet
+if 'PM2_5_pred' in df.columns:
+    df[['timestamp', 'region', 'PM2_5', 'PM2_5_pred']].to_parquet(
+        os.path.join(OUTPUT_DIR, "ml_predictions.parquet"), index=False
+    )
+
+print("✅ All charts and data (CSV + Parquet) saved to 'section5/output/'")
