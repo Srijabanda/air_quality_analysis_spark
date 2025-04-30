@@ -259,3 +259,69 @@ This section focuses on building a machine learning pipeline using Spark MLlib t
 - Generated accurate predictions for use in real-time air quality monitoring systems.
 - Prepared model and outputs for integration into visualization and alert pipelines in Section 5.
 
+## 📊 Section 5: Pipeline Integration & Dashboard Visualization
+
+### 🎯 Objective
+
+This section brings together the outputs of the entire air quality monitoring pipeline—from raw data ingestion through transformation, modeling, and analysis—and visualizes the results through a series of clear, static dashboards. It provides stakeholders with actionable insights and stores all final outputs for reporting or future monitoring.
+
+---
+
+### 🧩 What This Section Includes
+
+- ✅ **Loads final feature-engineered data from Section 2**
+- ✅ **Overlays actual vs lagged vs predicted PM2.5 levels**
+- ✅ **Highlights high-pollution spike events**
+- ✅ **Breaks down AQI classifications (Good / Moderate / Unhealthy)**
+- ✅ **Displays a correlation heatmap among key features**
+- ✅ **Saves predictions in both CSV and Parquet formats**
+
+---
+
+Make sure `section2/output/feature_engineered_data/part-*.csv` exists.
+
+```bash
+pip install pandas plotly kaleido
+python section5/pipeline_dashboard.py
+```
+All charts and reports will be saved in:
+section5/output/
+
+
+
+### 📊 Visualizations Produced
+#### 1️⃣ PM2.5: Actual vs Lagged vs Predicted
+Compares real-time, lagged, and ML-forecasted values of PM2.5.
+
+Helps track model performance and pollutant shifts.
+
+📁 pm25_actual_vs_lagged.png
+
+#### 2️⃣ Spike Event Timeline
+Highlights pollution spikes where PM2.5 > 100.
+
+Categorized into AQI levels using color coding.
+
+📁 spike_events.png
+
+#### 3️⃣ AQI Classification Breakdown
+Pie chart summarizing proportions of Good, Moderate, and Unhealthy air quality periods.
+
+📁 aqi_pie_chart.png
+
+#### 4️⃣ Correlation Matrix
+Shows how PM2.5 correlates with temperature and humidity.
+
+📁 correlation_matrix.png
+
+## ✅ Project Summary: End-to-End Air Quality Monitoring Pipeline
+This project simulates a real-time air quality monitoring and forecasting system using Apache Spark. It integrates data ingestion, transformation, analysis, prediction, and visualization into a seamless, modular pipeline.
+
+### 📌 Key Capabilities
+
+Module	Outcome
+Section 1 – Ingestion	Simulates streaming sensor data using TCP and Spark Structured Streaming, producing cleaned, timestamped CSV files
+Section 2 – Transformation	Cleans data, handles missing values/outliers, adds lag/rate features, and aggregates trends
+Section 3 – SQL Analysis	Extracts insights using Spark SQL (e.g., 24-hour PM2.5 averages, AQI classification, peak intervals)
+Section 4 – ML Forecasting	Builds and tunes a Random Forest model for PM2.5 prediction with metrics and stored predictions
+Section 5 – Dashboard & Reporting	Visualizes trends and predictions via Plotly and saves all results (CSV, Parquet, PNG) for stakeholder-ready reporting
