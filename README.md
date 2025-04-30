@@ -200,3 +200,63 @@ The outputs of this section enable:
 - Preparation of data for reporting or alert systems
 
 ---
+
+## Section 4: Spark MLlib Modeling & Forecasting
+
+### Overview
+This section focuses on building a machine learning pipeline using Spark MLlib to forecast PM2.5 concentrations. We train and evaluate a Random Forest Regressor using cross-validation and hyperparameter tuning. The results include performance metrics and predictions, which are saved for further use in real-time systems or dashboards.
+
+---
+
+### Input
+
+- **Path**: `/workspaces/air_quality_analysis_spark/section2/output/feature_engineered_data/`
+- **Source**: Output from Section 2 (feature-engineered dataset with lag features, weather metrics, and rate-of-change indicators)
+
+---
+
+### Tasks Performed
+
+1. **Feature Selection & Assembly**
+   - Selected features: `PM2_5_lag1`, `temperature`, `PM2_5_rate_change`, `humidity`, `hour`
+   - Used `VectorAssembler` to combine them into a single feature vector.
+
+2. **Train-Test Split**
+   - Split data into 80% training and 20% testing using `randomSplit`.
+
+3. **Model Initialization**
+   - Used `RandomForestRegressor` to predict PM2.5 levels.
+   - Wrapped in a `Pipeline` for easier model tuning.
+
+4. **Hyperparameter Tuning**
+   - Defined a grid of parameters for `numTrees` and `maxDepth`.
+   - Performed 3-fold cross-validation using `CrossValidator`.
+
+5. **Training & Evaluation**
+   - Trained model using training data and selected the best one.
+   - Evaluated on test data using:
+     - **RMSE** (Root Mean Square Error)
+     - **R²** (Coefficient of Determination)
+
+6. **Saving Outputs**
+   - Saved the best trained model to disk.
+   - Saved predictions and evaluation metrics as CSV files using PySpark and Pandas.
+
+---
+
+### Output Summary
+
+| Folder/File | Description |
+|-------------|-------------|
+| `/section4/output/final_rf_model/` | Trained and tuned Random Forest regression model |
+| `/section4/output/predictions.csv` | Predicted vs. actual PM2.5 values on test set |
+| `/section4/output/metrics.csv` | Model evaluation results (RMSE and R²) |
+
+---
+
+### Outcome
+
+- Developed and optimized a regression model for PM2.5 forecasting.
+- Generated accurate predictions for use in real-time air quality monitoring systems.
+- Prepared model and outputs for integration into visualization and alert pipelines in Section 5.
+
